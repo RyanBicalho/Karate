@@ -4,7 +4,7 @@ Feature: Hook
 Scenario: Registrar usuario
     Given url baseUrl 
     And path "users"
-    And request {name : "Pao de queijo", email : "paodequeijo@email.com"}
+    And request {name : "Pao de queijo", email : "#('paodequeijo' + java.util.UUID.randomUUID() + '@email.com')"}
     When method post
     Then status 201
 
@@ -14,4 +14,6 @@ Scenario: Deletar usuario
     And path "users", paoDoce
     When method delete
     Then status 204
+
+
     

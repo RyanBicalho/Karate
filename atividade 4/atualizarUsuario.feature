@@ -34,9 +34,10 @@ Scenario: Atualiza Usuraio com email inválido fora do padrao
     
 Scenario: Atualiza Usuario com mesmo email
     * def id = call read("hook.feature@registrar")
+    * def id2 = call read("hook.feature@registrar")
     Given url baseUrl
     And path "users", id.response.id
-    And request {name : "Pao de batata", email : "paodealho@email.com"}
+    And request {name : "Pao de batata", email : "#(id2.response.email)"}
     When method put
     Then status 422
     And match response contains { error: "E-mail already in use."}
@@ -45,6 +46,7 @@ Scenario: Atualiza Usuario com mesmo email
     
 
 Scenario: Atualiza Usuario com mais de 100 caracteres, Nome
+     * def id = call read("hook.feature@registrar")
     Given url baseUrl
     And path "users", id.response.id
     And request {name : "PaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatataPaodebatata", email : "paodefarinha@email.com"}

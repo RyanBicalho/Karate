@@ -9,7 +9,7 @@ Scenario: Retornar usuario por Id
     And path "users", id.response.id
     When method get
     Then status 200
-    And match response contains {id: "#(id.response.id)"}
+    And match response contains {id: "#(id.response.id)", name: "#(id.response.name)", email : "#(id.response.email)", createdAt: "#(id.response.createdAt)", updatedAt: "#(id.response.updatedAt)"}
     * def paoDoce = id.response.id
     * def paoDeSal = call read("hook.feature@delete")
 

@@ -6,10 +6,10 @@ Feature: Criar Usuario
 Scenario: Registrar Usuario
     Given url baseUrl
     And path "users"
-    And request {name : "Pao de queijo", email : "paodequeijo@email.com"}
+    And request {name : "Pao de queijo", email : "#('paodequeijo' + java.util.UUID.randomUUID() + '@email.com')"}
     When method post
     Then status 201
-    And match response contains { name:"Pao de queijo", email: "paodequeijo@email.com" }
+    And match response contains { name:"Pao de queijo", email: "#(response.email)" }
     * def paoDoce = response.id
     * def paoDeSal = call read("hook.feature@delete")
 
